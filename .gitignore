@@ -1,2 +1,15 @@
-# don't include the venv
-/venv
+# venv
+venv/
+.env/
+.venv/
+
+# python
+__pycache__/
+
+# pip build files
+PKG-INFO
+SOURCES.txt
+dependency_links.txt
+*.egg-info/
+dist/
+build/
