@@ -1,0 +1,9 @@
+# packages required for a local installation
+# can be installed by passing the file name to pip install -r 
+flask==3.0.0
+scikit-learn==1.3.2
+pandas==2.1.4
+numpy==1.26.2
+joblib==1.3.2 # tools for lightweight pipelining
+gunicorn==21.2.0 #python WSGI HTTP Server for UNIX
+pytest==7.4.3
