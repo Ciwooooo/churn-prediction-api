@@ -12,6 +12,7 @@ dependencies = [
     "numpy==1.26.2",
     "joblib==1.4.0", # tools for lightweight pipelining
     "gunicorn==22.0.0", #python WSGI HTTP  Server for UNIX
+    "typing-3.7.4.3" # for typecasting
 ]
 
 [project.optional-dependencies]
