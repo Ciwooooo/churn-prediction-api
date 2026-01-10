@@ -3,7 +3,7 @@ name = "churn-prediction-api"
 version = "0.1.0"
 description = "Simple project created to solidify Docker knowledge. Builds and uses a Flaks API that serves a sklearn model for customer churn prediction (using dummy data). Contenerized with Docker using multi-stage builds. Intended as an initial version to be expanded with kubernetes, etc."
 authors = [
-    {name="Wiktor Ciwo Bednarski"}
+    {name="Wiktor 'Ciwo' Bednarski"}
 ]
 dependencies = [
     "flask==3.0.0",
@@ -11,8 +11,7 @@ dependencies = [
     "pandas==2.3.0",
     "numpy==1.26.2",
     "joblib==1.4.0", # tools for lightweight pipelining
-    "gunicorn==22.0.0", #python WSGI HTTP  Server for UNIX
-    "typing-3.7.4.3" # for typecasting
+    "gunicorn==22.0.0"#python WSGI HTTP  Server for UNIX
 ]
 
 [project.optional-dependencies]
