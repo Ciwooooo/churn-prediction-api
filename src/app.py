@@ -72,7 +72,7 @@ def predict():
         missing_fields = [field for field in required_fields if field not in data]
 
         if missing_fields:
-            return: jsonify({
+            return jsonify({
                 'error':'Missing required fields',
                 'missing_fields': missing_fields
             }), 400
@@ -109,8 +109,8 @@ def predict():
         return jsonify(response)
 
         # error handling
-        except Exception as e:
-            return jsonify({'error':str(e)}), 500
+    except Exception as e:
+        return jsonify({'error':str(e)}), 500
 
 # ----------------------------------------------------------
 @app.route('/batch-predict', methods=['POST'])
