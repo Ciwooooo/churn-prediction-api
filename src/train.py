@@ -15,7 +15,7 @@ from typing import Dict, List, Tuple, Optional, Any
 # writing in OOP for good practice
 
 # ==========================================================
-class DatapreProcessor:
+class DataPreprocessor:
 
     def __init__(self, filepath:str) -> None:
         self.filepath:str = filepath
@@ -25,7 +25,7 @@ class DatapreProcessor:
 # ----------------------------------------------------------
     def data_load_preprocess(self):
         df = pd.read_csv(self.filepath)
-        X = df.drop(['chrun', 'customer_id'], axis=1)
+        X = df.drop(['churn', 'customer_id'], axis=1)
         y: pd.Series = df['churn']
 
         # hard coded list of categorical columns in the dataset
@@ -122,7 +122,7 @@ class ModelTrainer:
 
 # ==========================================================
 class ModelPipeline:
-    def __inint__(self, filepath, model_type='RandomForestClassifier', **model_kwargs):
+    def __init__(self, filepath, model_type='RandomForestClassifier', **model_kwargs):
         self.preprocessor = DataPreprocessor(filepath)
         self.trainer = ModelTrainer(model_type, **model_kwargs)
 
@@ -140,7 +140,7 @@ class ModelPipeline:
 
         # train and eval
         model = self.trainer.train(X_train, y_train)
-        metrics = self.trainer.evaluate(X_test, y_test)
+        metrics = self.trainer.eval(X_test, y_test)
 
         print(f'\nModel Performance:')
         print(f'Accuracy: {metrics['accuracy']:.4f}')
@@ -164,11 +164,11 @@ class ModelPipeline:
 
         # create the metadata dict
         metadata = {
-            'training_date': datetime.now.isoformat(),
+            'training_date': datetime.now().isoformat(),
             'model_type': self.trainer.model_type,
             'n_features': len(self.preprocessor.feature_names),
             'feature_names': self.preprocessor.feature_names,
-            metrics: {
+            'metrics': {
                 'accuracy': float(metrics['accuracy']),
                 'roc_auc': float(metrics['roc_auc'])
             }
@@ -196,4 +196,4 @@ if __name__ == '__main__':
         random_state=42,
         n_jobs=-1 # max number of jobs possible
     )
-pipeline.main()
+    pipeline.main()
