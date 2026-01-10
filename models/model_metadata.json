@@ -1,5 +1,5 @@
 {
-  "training_date": "2026-01-10T13:52:28.188288",
+  "training_date": "2026-01-10T16:58:35.084756",
   "model_type": "RandomForestClassifier",
   "n_features": 7,
   "feature_names": [
