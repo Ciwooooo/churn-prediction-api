@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # PostreSQL DB
+  postgres:
+    image: postgres15-alpine
+    container_name: churn_db
+    # def env variables
+    environment:
+      POSTGRES_USER: churn_user
+      POSTGRES_PASSWORD: churn_password_123
+      POSTGRES_DB: churn_db
+    ports:
+      - "5432:5432"
+    # define a vol for storing the data out of the container
+    volumes:
+      - postgres_data:/var/lib/postresql/data
+      - ./init-db.sql/docker-entrypoint-initdb.d/init-db.sql
+    # healthchecks
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U churn_user -d churn_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # create a separate network for it
+    networks:
+        - churn-network
+
+  # ML API Service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: churn-api
+    # env variables
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: churn_db
+      DB_USER: churn_user
+      DB_PASSWORD: churn_password_123
+      DB_ENABLED: "true"
+      MODEL_PATH: /app/models/churn_model.pkl
+    ports:
+    - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+     - ./models:/app/models
+    networks:
+      - churn-network
+    restart: unless-stopped
+
+  # PgAdmint for db management
+  pdadmin:
+    image: dpage/pgadmin4:latest
+    container_name: churn-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@churn.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+    - churn-network
+    restart: unless-stopped
+  
+  volumes:
+    postgres_data:
+      driver: local
+
+  networks:
+  churn-network:
+    driver: bridge
