@@ -1,0 +1,18 @@
+{
+  "training_date": "2026-01-10T13:52:28.188288",
+  "model_type": "RandomForestClassifier",
+  "n_features": 7,
+  "feature_names": [
+    "tenure",
+    "monthly_charges",
+    "total_charges",
+    "contract_type",
+    "payment_method",
+    "internet_service",
+    "tech_support"
+  ],
+  "metrics": {
+    "accuracy": 0.71,
+    "roc_auc": 0.6745993200582807
+  }
+}
