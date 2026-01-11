@@ -27,7 +27,7 @@ with open('models/model_metadata.json', 'r') as f:
 @app.route('/') # Flask-specific decorator, binds a func to an URL
 def home():
     """Health check endpoint."""
-    return jasonify({
+    return jsonify({
         'status':'healthy',
         'service':'Churn Prediction API',
         'version':'1.0.0'
